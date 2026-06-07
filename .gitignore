@@ -92,7 +92,9 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+# .env is committed as a template — real secrets go in .env.local (git-ignored)
+.env.local
+.env.secret
 .venv
 env/
 venv/
@@ -147,8 +149,11 @@ logs/
 # Pre-commit
 .pre-commit-framework
 
-# VoiceGuard — runtime storage (never commit)
-memory_store/
-reports/
+# VoiceGuard — runtime storage (never commit actual data)
+# Keep the directory structure via .gitkeep, ignore runtime files
+memory_store/*
+!memory_store/.gitkeep
+reports/*
+!reports/.gitkeep
 data/uploads/
 *.db

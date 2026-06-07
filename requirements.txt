@@ -1,11 +1,11 @@
 # Core dependencies
-torch>=2.0.0,<2.3.0
-torchaudio>=2.0.0,<2.3.0
+torch>=2.0.0
+torchaudio>=2.0.0
 librosa>=0.10.0
-numpy>=1.23.0,<2.0.0
+numpy>=1.23.0
 scipy>=1.10.0
-numba==0.61.2                # prebuilt wheel; required by librosa on macOS x86_64
-llvmlite==0.44.0
+numba>=0.59.0                 # Relaxed from strict 0.61.2 for better compatibility
+llvmlite>=0.41.0
 
 # ML and data processing
 scikit-learn>=1.2.0
@@ -46,7 +46,7 @@ openai>=1.30.0
 # Memory — vector store
 chromadb>=0.5.0
 sentence-transformers>=3.0.0,<4.0.0
-transformers>=4.41.0,<5.0.0   # transformers 5.x requires torch>=2.4 (unavailable on mac x86_64)
+transformers>=4.41.0          # Removed the <5.0.0 constraint if running newer torch
 
 # Memory — structured (SQLite ORM)
 sqlalchemy>=2.0.0
