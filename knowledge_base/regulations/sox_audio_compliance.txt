@@ -1,0 +1,16 @@
+SOX (Sarbanes-Oxley Act) — Audio Recording and Executive Authorization Requirements
+
+SECTION 302: CORPORATE RESPONSIBILITY FOR FINANCIAL REPORTS
+Executive officers must certify the accuracy of financial reports. Any audio recording of an executive authorising a financial transaction is considered supporting evidence for SOX compliance. Synthetic or manipulated audio submitted as authorisation evidence constitutes a material misstatement and may expose the organisation to criminal liability under 18 U.S.C. Section 1350.
+
+SECTION 404: MANAGEMENT ASSESSMENT OF INTERNAL CONTROLS
+Organisations must maintain internal controls that prevent fraudulent instructions from being executed. Failure to detect deepfake audio in a financial authorisation workflow may be deemed a material weakness in internal controls, requiring disclosure in annual filings and potential SEC enforcement action.
+
+SECTION 906: CORPORATE RESPONSIBILITY FOR FINANCIAL REPORTS
+Criminal penalties up to $5 million and 20 years imprisonment for knowingly certifying a false financial report. Civil penalties up to $500,000 per violation.
+
+COMPLIANCE OBLIGATION FOR AUDIO DEEPFAKES:
+If a deepfake audio is used to authorise a transaction, the organisation may be held liable for failing to implement adequate controls. The SEC expects organisations to have "reasonable assurance" that financial reporting controls are effective. Deepfake detection integrated into approval workflows qualifies as a preventive control under COSO Internal Control framework.
+
+RECOMMENDED CONTROL:
+All audio authorisations for transactions above a materiality threshold ($50,000 or organisation-defined) should be verified through multi-factor authentication. Deepfake detection should be mandatory for high-value approval workflows. Results must be retained as part of the audit trail for a minimum of 7 years.

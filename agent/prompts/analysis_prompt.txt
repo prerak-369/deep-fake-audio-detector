@@ -1,0 +1,9 @@
+Analyse this audio compliance incident and provide a structured regulatory assessment.
+
+Focus on:
+- The business context of the recording (what was it authorising?)
+- The regulatory significance of a deepfake at this point in the workflow
+- Whether the historical pattern data indicates an organised threat actor
+- Concrete next steps with clear ownership
+
+The compliance officer reading this report needs to decide within the hour whether to halt a financial transaction, notify regulators, or escalate to law enforcement. Your analysis must be clear enough to support that decision.

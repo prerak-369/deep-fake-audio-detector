@@ -1,10 +1,19 @@
 """
-FastAPI Backend — Deepfake Audio Detector
-==========================================
-Endpoints:
+FastAPI Backend — VoiceGuard Compliance Intelligence Agent
+==========================================================
+Endpoints (existing):
   POST /analyze        upload audio file → returns job_id
   GET  /result/{id}    get prediction result
   GET  /health         health check
+
+Endpoints (new — VoiceGuard agent layer):
+  POST /agent/analyze          full compliance analysis
+  GET  /memory/history         case history
+  GET  /memory/case/{id}       single case
+  GET  /memory/patterns        pattern analysis
+  GET  /memory/stats           dashboard stats
+  GET  /reports/{case_id}      download audit report
+  GET  /reports/               list all reports
 
 Run:
   uvicorn api.main:app --reload --port 8000
@@ -18,6 +27,7 @@ from typing import Dict
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
@@ -26,15 +36,20 @@ from api.schemas.request  import AnalyzeResponse, ResultResponse, HealthResponse
 from api.predictor        import get_predictor
 from src.utils.logger     import get_logger
 
+# ── New routers ───────────────────────────────────────────────────────────────
+from api.routes.agent   import router as agent_router
+from api.routes.memory  import router as memory_router
+from api.routes.reports import router as reports_router
+
 logger = get_logger("api")
 
 app = FastAPI(
-    title="Deepfake Audio Detector",
-    description="Detect AI-generated voices using CNN + LSTM + Voice Biometrics",
-    version="1.0.0",
+    title="VoiceGuard Compliance Intelligence Agent",
+    description="AI-powered audio deepfake detection with memory, pattern analysis, and regulatory reporting.",
+    version="2.0.0",
 )
 
-# Allow frontend to call the API
+# ── CORS ──────────────────────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -42,7 +57,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory result store (replace with Redis/DB for production)
+# ── Mount new routers ─────────────────────────────────────────────────────────
+app.include_router(agent_router)
+app.include_router(memory_router)
+app.include_router(reports_router)
+
+# ── Serve frontend static files ───────────────────────────────────────────────
+frontend_dir = ROOT / "frontend"
+if frontend_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(frontend_dir)), name="static")
+
+# ── In-memory result store (existing behaviour unchanged) ─────────────────────
 results: Dict[str, dict] = {}
 
 ALLOWED_EXTENSIONS = {".wav", ".mp3", ".flac", ".ogg", ".m4a"}
@@ -53,10 +78,7 @@ MAX_FILE_SIZE_MB   = 10
 def health():
     """Check if the API and model are ready."""
     predictor = get_predictor()
-    return HealthResponse(
-        status="ok",
-        model_loaded=predictor.is_ready(),
-    )
+    return HealthResponse(status="ok", model_loaded=predictor.is_ready())
 
 
 @app.post("/analyze", response_model=AnalyzeResponse)
@@ -65,7 +87,6 @@ async def analyze(file: UploadFile = File(...)):
     Upload an audio file and get a job_id.
     Poll GET /result/{job_id} for the verdict.
     """
-    # ── Validate file ──────────────────────────────────────────────────────
     suffix = Path(file.filename).suffix.lower()
     if suffix not in ALLOWED_EXTENSIONS:
         raise HTTPException(
@@ -81,7 +102,6 @@ async def analyze(file: UploadFile = File(...)):
             detail=f"File too large ({size_mb:.1f} MB). Max: {MAX_FILE_SIZE_MB} MB"
         )
 
-    # ── Save temp file ─────────────────────────────────────────────────────
     job_id   = str(uuid.uuid4())
     tmp_dir  = ROOT / "data" / "uploads"
     tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -90,7 +110,6 @@ async def analyze(file: UploadFile = File(...)):
     with open(tmp_path, "wb") as f:
         f.write(audio_bytes)
 
-    # ── Run inference ──────────────────────────────────────────────────────
     try:
         t_start   = time.time()
         predictor = get_predictor()
@@ -116,7 +135,6 @@ async def analyze(file: UploadFile = File(...)):
         results[job_id] = {"status": "error", "error": str(e)}
         logger.error(f"[{job_id[:8]}] Inference failed: {e}")
     finally:
-        # Clean up temp file
         try:
             tmp_path.unlink()
         except Exception:

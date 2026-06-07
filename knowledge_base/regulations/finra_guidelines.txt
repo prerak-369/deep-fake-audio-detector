@@ -1,0 +1,22 @@
+FINRA — Financial Industry Regulatory Authority Voice Recording and Recordkeeping Rules
+
+FINRA RULE 4511 — GENERAL REQUIREMENTS
+FINRA member firms must make and preserve books and records as required by FINRA rules, SEA rules, and SEA Section 17. All records, including audio recordings used as authorisation or evidence, must be maintained in a format that does not allow alteration. A deepfake audio submitted as a compliance record violates Rule 4511 and constitutes a falsification of required records.
+
+FINRA RULE 4370 — BUSINESS CONTINUITY PLANS
+Firms must have procedures for emergency communications. Deepfake audio targeting authorisation workflows directly undermines these procedures and may trigger review of the firm's business continuity plan adequacy.
+
+FINRA NOTICE 17-18 — SOCIAL ENGINEERING AND PHISHING
+FINRA has explicitly warned member firms about social engineering attacks targeting financial transfers. Voice-based deepfake fraud is classified as an advanced social engineering threat. Firms are expected to have controls that detect and prevent such attacks.
+
+SEC RULE 17A-4 — ELECTRONIC RECORDKEEPING
+All electronic records, including audio files, must be preserved in a non-rewriteable, non-erasable format (WORM storage). Audit trail requirements mandate that any deepfake detection result must be stored alongside the original audio file as an immutable record.
+
+PENALTIES FOR FALSIFIED RECORDS:
+FINRA can impose fines up to $1 million per violation and bar individuals from the securities industry. Criminal referrals to DOJ are standard for intentional record falsification.
+
+OBLIGATIONS UPON DETECTING A DEEPFAKE SUBMISSION:
+1. Immediately preserve the audio file and detection report (chain of custody).
+2. File a Suspicious Activity Report (SAR) with FinCEN if the deepfake was used to attempt a financial transaction.
+3. Notify FINRA within the reporting period if the incident constitutes a material regulatory violation.
+4. Conduct a review of all recent transactions involving the same submitter or department.

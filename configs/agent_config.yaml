@@ -1,0 +1,25 @@
+# VoiceGuard Agent Configuration
+
+agent:
+  model: "gpt-4o"
+  max_tokens: 2000
+  temperature: 0.2
+  risk_thresholds:
+    low:      3.0
+    medium:   6.0
+    high:     8.0
+    critical: 8.0   # score >= 8.0 maps to CRITICAL
+
+memory:
+  chroma_persist_dir: "./memory_store/chroma_db"
+  sqlite_path: "./memory_store/compliance.db"
+  pattern_window_days: 30
+  semantic_top_k: 3               # number of regulation chunks to retrieve per query
+
+reports:
+  output_dir: "./reports"
+
+knowledge_base:
+  regulations_dir: "./knowledge_base/regulations"
+  chunk_size: 500
+  chunk_overlap: 50
