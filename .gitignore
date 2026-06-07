@@ -157,4 +157,3 @@ reports/*
 !reports/.gitkeep
 data/uploads/
 *.db
-.env 

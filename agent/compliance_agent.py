@@ -185,64 +185,8 @@ Please provide your structured compliance assessment.
         verdict   = "DEEPFAKE DETECTED" if detection["is_fake"] else "AUTHENTIC AUDIO"
         dept      = context.get("department", "Unknown")
         purpose   = context.get("purpose", "not specified")
-        submitter = context.get("submitter", "Unknown")
         conf_pct  = f"{detection['confidence'] * 100:.1f}%"
         note      = f"\n[Note: OpenAI API unavailable — {error}]" if error else ""
-
-        if dept.lower() == "customer support":
-            if detection["is_fake"]:
-                return f"""1. VERDICT & IDENTITY AUTHENTICATION
-This customer support audio call has been classified as a DEEPFAKE with {conf_pct} confidence. The caller's voice is synthetic and does NOT match the biometric signature of customer "{submitter}". This is flagged as a Vishing (voice phishing) fraud attempt to compromise the customer's account details for "{purpose}".{note}
-
-2. CUSTOMER INTERACTION HISTORY
-• Account: {submitter}
-• Memory check: Historical logs show 2 successful verification reviews in the last 90 days. However, recent tickets indicate a sudden wave of password reset requests from unrecognized devices.
-• Memory mapping: The memory of past resolutions shows that customer {submitter} always resolves billing issues via email, making this sudden high-pressure voice call suspicious.
-
-3. PRECEDENTS & RESOLUTION RECOMMENDATIONS
-• Resolution: Lock account immediately to prevent unauthorized access.
-• Precedent comparison: Matching against Precedent 3 (Login Authentication Failure / Vishing). Since voice authenticity failed, lock the account, freeze password reset capability, and require physical/video identification.
-
-4. REGULATORY & COMPLIANCE IMPACT
-• GDPR Article 32: Security of processing requires immediate safeguard of customer voice biometric templates.
-• FTC Safeguards Rule: Unauthorized access of customer information must be blocked and reported to security compliance.
-• Identity Theft / FCRA: This constitutes a coordinated identity theft attempt.
-
-5. IMMEDIATE & SYSTEMIC SECURITY ACTIONS
-1. Lock customer profile '{submitter}' immediately (password reset disabled).
-2. Send an out-of-band notification (SMS/Email) to the registered contact info alerting them of a blocked verification attempt.
-3. Notify Fraud Prevention Team to investigate the source IP and caller ID.
-4. Update customer's baseline template to mark this voice profile as a known attacker voice signature.
-5. Require multi-factor authentication (MFA) via SMS before unlocking account.
-
-6. CUSTOMER-FACING RESPONSE
-Hello. To protect your security, we performed a standard voice biometric verification for customer profile "{submitter}". We detected an authentication anomaly on this call. As a precaution, we have locked password reset capabilities on your account. An email and SMS have been sent to your registered contact details with instructions on how to securely verify your identity and unlock your account. Thank you for your cooperation in keeping your account safe."""
-            else:
-                return f"""1. VERDICT & IDENTITY AUTHENTICATION
-The caller's voice has been classified as AUTHENTIC with {conf_pct} confidence. Biometric signature verified for customer "{submitter}" seeking assistance for "{purpose}".{note}
-
-2. CUSTOMER INTERACTION HISTORY
-• Account: {submitter}
-• Memory check: Retrieved ticket history for {submitter}:
-  - Ticket CS-4091 (7 days ago): Resolved. Reported billing sync discrepancy where their premium subscription failed to show active.
-  - Ticket CS-3904 (14 days ago): Resolved. One-time refund of $50 issued for accidental duplicate charge.
-• Context match: The customer is calling regarding "{purpose}". Since the billing discrepancy was resolved with a refund last week but they are calling again, the issue seems to be a database synchronization lag.
-
-3. PRECEDENTS & RESOLUTION RECOMMENDATIONS
-• Resolution: Apply Precedent 1 (Account Sync Error).
-• Precedent resolution: Verify subscription token, manually force database synchronization, and grant 3 days of free premium credit for the inconvenience. Avoid asking customer to re-explain the billing issue.
-
-4. REGULATORY & COMPLIANCE IMPACT
-• GDPR Article 6 & 15: Lawful processing of voice data for verification. Customer is entitled to access their complete interaction history and verification outcomes.
-• standard retention and recordkeeping obligations apply.
-
-5. IMMEDIATE & SYSTEMIC SECURITY ACTIONS
-1. Update current ticket status to "Resolved - Precedent 1 Applied".
-2. Log this successful voice verification in the customer's interaction history database.
-3. No further security actions required; the customer is verified.
-
-6. CUSTOMER-FACING RESPONSE
-Hello Sarah! Thank you for contacting Customer Support. We have successfully verified your voice biometrics for your account "{submitter}". Based on your recent ticket history, we see you called about your premium subscription synchronization issue. I have synced your account state with Stripe and granted a complimentary 3 days of free premium access for the inconvenience. Your subscription should show active now! Is there anything else I can help you with today?"""
 
         if detection["is_fake"]:
             return f"""1. VERDICT

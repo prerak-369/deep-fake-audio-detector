@@ -39,11 +39,10 @@ def _get_agent() -> ComplianceAgent:
 
 @router.post("/analyze")
 async def agent_analyze(
-    file:              UploadFile = File(...,  description="Audio file to analyse (.wav/.mp3/.flac/.ogg/.m4a)"),
-    submitter:         str        = Form("",   description="Name or email of the person submitting the audio"),
-    department:        str        = Form("",   description="Department (Finance, Legal, Executive…)"),
-    purpose:           str        = Form("",   description="Purpose / description of the audio recording"),
-    issue_description: str        = Form("",   description="Written details of the customer issue"),
+    file:       UploadFile = File(...,  description="Audio file to analyse (.wav/.mp3/.flac/.ogg/.m4a)"),
+    submitter:  str        = Form("",   description="Name or email of the person submitting the audio"),
+    department: str        = Form("",   description="Department (Finance, Legal, Executive…)"),
+    purpose:    str        = Form("",   description="Purpose / description of the audio recording"),
 ):
     """
     Full compliance pipeline:
@@ -83,10 +82,9 @@ async def agent_analyze(
 
         # ── Run agent ─────────────────────────────────────────────────────────
         context = {
-            "submitter":         submitter.strip() or "Unknown",
-            "department":        department.strip() or "General",
-            "purpose":           purpose.strip()    or "Not specified",
-            "issue_description": issue_description.strip() or "",
+            "submitter":  submitter.strip() or "Unknown",
+            "department": department.strip() or "General",
+            "purpose":    purpose.strip()    or "Not specified",
         }
         agent  = _get_agent()
         result = agent.analyze(

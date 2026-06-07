@@ -96,66 +96,6 @@ SEED_CASES = [
         "risk_level":    "CRITICAL",
         "risk_score":    9.7,
     },
-    {
-        "case_id":       "DEMO0003",
-        "audio_path":    "demo/past_incident_3.wav",
-        "filename":      "support_verification_jenkins.wav",
-        "is_fake":       False,
-        "confidence":    0.984,
-        "proba_cnn":     0.012,
-        "proba_lstm":    0.021,
-        "proba_bio":     0.015,
-        "department":    "Customer Support",
-        "submitter":     "s.jenkins@gmail.com",
-        "purpose":       "Customer Sarah Jenkins requesting subscription billing sync check",
-        "timestamp":     (datetime.now(timezone.utc) - timedelta(days=5)).isoformat(),
-        "analysis_text": (
-            "1. VERDICT & IDENTITY AUTHENTICATION\n"
-            "AUTHENTIC CUSTOMER AUDIO with 98.4% confidence. Voice signature verified for customer \"s.jenkins@gmail.com\".\n\n"
-            "2. CUSTOMER INTERACTION HISTORY\n"
-            "• Account: s.jenkins@gmail.com\n"
-            "• Memory check: Customer has a history of 2 billing-related tickets in the last 14 days.\n\n"
-            "3. PRECEDENTS & RESOLUTION RECOMMENDATIONS\n"
-            "• Resolution: Apply Precedent 1 (Account Sync Error) to manually sync the Stripe token and credit 3 days of premium access.\n\n"
-            "4. REGULATORY & COMPLIANCE IMPACT\n"
-            "Lawful data verification processed in compliance with GDPR data protection requirements.\n\n"
-            "5. IMMEDIATE & SYSTEMIC SECURITY ACTIONS\n"
-            "No security escalation required. Logged successful verification in interaction logs."
-        ),
-        "report_path":   "reports/case_DEMO0003.txt",
-        "risk_level":    "LOW",
-        "risk_score":    1.2,
-    },
-    {
-        "case_id":       "DEMO0004",
-        "audio_path":    "demo/past_incident_4.wav",
-        "filename":      "support_verification_spoof.wav",
-        "is_fake":       True,
-        "confidence":    0.912,
-        "proba_cnn":     0.925,
-        "proba_lstm":    0.898,
-        "proba_bio":     0.914,
-        "department":    "Customer Support",
-        "submitter":     "d.miller@yahoo.com",
-        "purpose":       "Bypass login locks and reset password via voice request",
-        "timestamp":     (datetime.now(timezone.utc) - timedelta(days=2)).isoformat(),
-        "analysis_text": (
-            "1. VERDICT & IDENTITY AUTHENTICATION\n"
-            "DEEPFAKE DETECTED (Vishing/Fraud Attempt) with 91.2% confidence. Voice is synthetic and does not match customer \"d.miller@yahoo.com\".\n\n"
-            "2. CUSTOMER INTERACTION HISTORY\n"
-            "• Account: d.miller@yahoo.com\n"
-            "• Memory check: Third failed authentication attempt targeting David Miller's account in the last 7 days.\n\n"
-            "3. PRECEDENTS & RESOLUTION RECOMMENDATIONS\n"
-            "• Resolution: Trigger Precedent 3 (Vishing lockout). Lock account immediately and suspend password reset function.\n\n"
-            "4. REGULATORY & COMPLIANCE IMPACT\n"
-            "GDPR Article 32 personal data breach threat. High risk of unauthorized disclosure.\n\n"
-            "5. IMMEDIATE & SYSTEMIC SECURITY ACTIONS\n"
-            "Freeze account profile immediately. Notify the customer via secondary SMS/Email. Escalate to Support Security team."
-        ),
-        "report_path":   "reports/case_DEMO0004.txt",
-        "risk_level":    "CRITICAL",
-        "risk_score":    8.8,
-    },
 ]
 
 
