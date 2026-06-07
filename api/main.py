@@ -31,6 +31,7 @@ load_dotenv()
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 ROOT = Path(__file__).parent.parent
@@ -76,6 +77,12 @@ results: Dict[str, dict] = {}
 
 ALLOWED_EXTENSIONS = {".wav", ".mp3", ".flac", ".ogg", ".m4a"}
 MAX_FILE_SIZE_MB   = 10
+
+
+@app.get("/")
+def root():
+    """Redirect browser visits to the VoiceGuard dashboard."""
+    return RedirectResponse(url="/static/dashboard.html")
 
 
 @app.get("/health", response_model=HealthResponse)
