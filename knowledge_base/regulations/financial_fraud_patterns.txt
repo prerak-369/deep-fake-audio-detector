@@ -1,0 +1,28 @@
+Financial Industry — Deepfake Audio Fraud Patterns and Response Frameworks
+
+SCENARIO 1: CEO / CFO FRAUD — WIRE TRANSFER AUTHORISATION
+An attacker clones a senior executive's voice and submits a recording authorising a large wire transfer to an external account. Finance staff, believing the voice to be authentic, processes the transfer. This is the most prevalent deepfake fraud vector in financial services.
+Real-world precedent: A UK energy company lost £201,000 in 2019 when attackers used AI voice cloning to impersonate the CEO and authorise a transfer. FBI IC3 estimates Business Email Compromise (including voice variants) caused $2.9 billion in losses in 2023.
+
+DETECTION SIGNATURE: High confidence deepfake score, submitter is claiming executive authority, transaction value is unusually large, request is time-pressured ("urgent", "end of day").
+
+RESPONSE: HALT transaction immediately. Verify executive identity through a pre-established secondary channel (call the executive's known mobile number directly). File a SAR if transfer was initiated.
+
+SCENARIO 2: AUDIT EVIDENCE TAMPERING
+A bad actor submits a deepfake audio recording as evidence during an internal or external audit — misrepresenting what was said in a meeting or call. This undermines audit integrity and may constitute obstruction of justice or securities fraud.
+
+DETECTION SIGNATURE: Audio submitted specifically in response to an audit request, content conveniently supports a disputed position, submitter has had prior compliance issues.
+
+RESPONSE: Treat as potential obstruction. Preserve original file with cryptographic hash. Notify external auditors immediately. Escalate to General Counsel.
+
+SCENARIO 3: IDENTITY FRAUD IN HIRING
+Deepfake audio used during a remote interview to misrepresent the candidate's identity, particularly for roles with access to sensitive financial systems. The real person (whose voice was cloned) may be unaware their voice was used.
+
+SCENARIO 4: COORDINATED CAMPAIGN INDICATORS
+Multiple deepfake submissions targeting the same department within a short time window indicate an organised threat actor. Key signals:
+- 3+ deepfake attempts within 30 days targeting same department
+- Similar audio characteristics across incidents (same TTS engine signature)
+- Escalating transaction values across attempts
+- Submitter accounts created recently or with unusual access patterns
+
+RESPONSE TO COORDINATED ATTACKS: Treat as an Advanced Persistent Threat (APT). Engage Information Security immediately. Consider law enforcement referral. Freeze all pending authorisations from the targeted department pending enhanced review.
