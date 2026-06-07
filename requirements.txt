@@ -7,7 +7,7 @@ scipy>=1.10.0
 
 # ML and data processing
 scikit-learn>=1.2.0
-scikit-audio>=0.1.0
+# scikit-audio>=0.1.0
 matplotlib>=3.7.0
 seaborn>=0.12.0
 pandas>=1.5.0
