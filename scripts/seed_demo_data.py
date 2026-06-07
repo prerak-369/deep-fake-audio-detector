@@ -19,6 +19,8 @@ from api.database.connection import SessionLocal
 from api.database import models  # noqa — triggers create_all
 from api.database.crud import create_case, get_case
 
+REPORTS_DIR = ROOT / "reports"
+
 
 SEED_CASES = [
     {
@@ -73,13 +75,42 @@ SEED_CASES = [
 ]
 
 
+def _write_demo_report(case: dict) -> None:
+    """Write a minimal audit report file so GET /reports/ and downloads work."""
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    path = REPORTS_DIR / f"case_{case['case_id']}.txt"
+    if path.exists():
+        return
+    content = f"""VoiceGuard Compliance Intelligence — Demo Audit Report
+Case ID    : {case['case_id']}
+Filename   : {case['filename']}
+Department : {case['department']}
+Submitter  : {case['submitter']}
+Purpose    : {case['purpose']}
+Timestamp  : {case['timestamp']}
+
+DETECTION VERDICT
+  DEEPFAKE DETECTED — {case['confidence'] * 100:.1f}% confidence
+  CNN: {case['proba_cnn']}  LSTM: {case['proba_lstm']}  Bio: {case['proba_bio']}
+  Risk: {case['risk_level']} ({case['risk_score']}/10)
+
+AGENT ANALYSIS
+{case['analysis_text']}
+"""
+    path.write_text(content.strip() + "\n", encoding="utf-8")
+
+
 def seed():
     db = SessionLocal()
     inserted = 0
     skipped  = 0
+    reports  = 0
 
     try:
         for case_data in SEED_CASES:
+            _write_demo_report(case_data)
+            reports += 1
+
             existing = get_case(db, case_data["case_id"])
             if existing:
                 print(f"  ↩  {case_data['case_id']} already exists — skipping")
@@ -91,8 +122,8 @@ def seed():
     finally:
         db.close()
 
-    print(f"\nSeeding complete: {inserted} inserted, {skipped} skipped.")
-    if inserted > 0:
+    print(f"\nSeeding complete: {inserted} inserted, {skipped} skipped, {reports} demo reports ensured.")
+    if inserted > 0 or reports > 0:
         print("Pattern engine will now show 2 prior Finance incidents on first demo run.")
 
 
